@@ -16,6 +16,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Some description will follow, when I have time
+ *
+ * @author PianoManu
+ * @version 1.0 05/08/2021
+ */
 public class Registration {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -38,3 +44,4 @@ public class Registration {
     public static final RegistryObject<Block> AND_GATE = BLOCKS.register("and_gate", () -> new AndGate(AbstractBlock.Properties.of(Material.STONE, MaterialColor.STONE)));
     public static final RegistryObject<Item> AND_GATE_ITEM = ITEMS.register("and_gate", () -> new BlockItem(AND_GATE.get(), new Item.Properties().tab(LogicsAndLogisticsMain.LogicsAndLogisticsItemGroup.LOGICS_AND_LOGISTICS)));
 }
+//========SOLI DEO GLORIA========//

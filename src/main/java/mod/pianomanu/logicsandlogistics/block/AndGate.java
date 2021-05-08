@@ -11,10 +11,17 @@ import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.Objects;
 import java.util.Random;
 
 import static net.minecraft.state.properties.BlockStateProperties.LOCKED;
 
+/**
+ * Some description will follow, when I have time
+ *
+ * @author PianoManu
+ * @version 1.0 05/08/2021
+ */
 public class AndGate extends AbstractTwoInputsBlock {
     public AndGate(Properties properties) {
         super(properties);
@@ -35,11 +42,11 @@ public class AndGate extends AbstractTwoInputsBlock {
         BlockState blockstate = super.getStateForPlacement(context);
         World world = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        return blockstate.setValue(LOCKED, this.isLocked(context.getLevel(), context.getClickedPos(), blockstate)).setValue(LEFT_POWERED, getLeftSignal(world, pos, blockstate) > 0).setValue(RIGHT_POWERED, getRightSignal(world, pos, blockstate) > 0);
+        return Objects.requireNonNull(blockstate).setValue(LOCKED, this.isLocked(context.getLevel(), context.getClickedPos(), blockstate)).setValue(LEFT_POWERED, getLeftSignal(world, pos, blockstate) > 0).setValue(RIGHT_POWERED, getRightSignal(world, pos, blockstate) > 0);
     }
 
     public int getSignal(BlockState state, IBlockReader blockReader, BlockPos pos, Direction direction) {
-        if (!state.getValue(LEFT_POWERED) || !state.getValue(RIGHT_POWERED)) {
+        if (!Objects.requireNonNull(state).getValue(LEFT_POWERED) || !state.getValue(RIGHT_POWERED)) {
             return 0;
         } else {
             return state.getValue(FACING) == direction ? this.getOutputSignal(blockReader, pos, state) : 0;
@@ -87,3 +94,4 @@ public class AndGate extends AbstractTwoInputsBlock {
         }
     }
 }
+//========SOLI DEO GLORIA========//

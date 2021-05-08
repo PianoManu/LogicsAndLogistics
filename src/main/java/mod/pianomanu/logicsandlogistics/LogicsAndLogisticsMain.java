@@ -1,16 +1,12 @@
 package mod.pianomanu.logicsandlogistics;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import mod.pianomanu.logicsandlogistics.setup.Registration;
 import mod.pianomanu.logicsandlogistics.setup.RenderSetup;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -22,10 +18,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
-import java.util.stream.Collectors;
 
-import static net.minecraftforge.versions.forge.ForgeVersion.MOD_ID;
-
+/**
+ * Some description will follow, when I have time
+ *
+ * @author PianoManu
+ * @version 1.0 05/08/2021
+ */
 @Mod("logicsandlogistics")
 public class LogicsAndLogisticsMain {
 
@@ -95,3 +94,5 @@ public class LogicsAndLogisticsMain {
         }
     }
 }
+//This mod is dedicated to the living God and His son, Jesus. Without His support, I would never have had enough strength and perseverance to get this project working and publish it. Learn to hear His voice, it will transform your life. (Based on a quote from Covert_Jaguar, creator of RailCraft)
+//========SOLI DEO GLORIA========//

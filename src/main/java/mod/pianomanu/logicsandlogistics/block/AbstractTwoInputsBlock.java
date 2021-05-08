@@ -18,8 +18,18 @@ import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Some description will follow, when I have time
+ *
+ * @author PianoManu
+ * @version 1.0 05/08/2021
+ */
+//@SuppressWarnings("all")
 public abstract class AbstractTwoInputsBlock extends HorizontalBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
     public static final BooleanProperty LEFT_POWERED = BlockStatePropertiesLAL.LEFT_POWERED;
@@ -31,13 +41,14 @@ public abstract class AbstractTwoInputsBlock extends HorizontalBlock {
     }
 
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
+    @Nonnull
+    public VoxelShape getShape(@Nullable BlockState p_220053_1_, @Nullable IBlockReader p_220053_2_, @Nullable BlockPos p_220053_3_, @Nullable ISelectionContext p_220053_4_) {
         return SHAPE;
     }
 
     @SuppressWarnings("deprecation")
-    public boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) {
-        return canSupportRigidBlock(world, pos.below());
+    public boolean canSurvive(@Nullable BlockState state, @Nullable IWorldReader world, BlockPos pos) {
+        return canSupportRigidBlock(Objects.requireNonNull(world), pos.below());
     }
 
     protected void checkTickOnNeighbor(World world, BlockPos pos, BlockState state) {
@@ -133,8 +144,8 @@ public abstract class AbstractTwoInputsBlock extends HorizontalBlock {
     }
 
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos pos2, boolean bool) {
-        if (state.canSurvive(world, pos)) {
+    public void neighborChanged(BlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable Block block, @Nullable BlockPos pos2, boolean bool) {
+        if (state.canSurvive(Objects.requireNonNull(world), Objects.requireNonNull(pos))) {
             this.checkTickOnNeighbor(world, pos, state);
         } else {
             TileEntity tileentity = state.hasTileEntity() ? world.getBlockEntity(pos) : null;
@@ -148,10 +159,10 @@ public abstract class AbstractTwoInputsBlock extends HorizontalBlock {
     }
 
     @SuppressWarnings("deprecation")
-    public abstract void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand);
+    public abstract void tick(@Nullable BlockState state, @Nullable ServerWorld world, @Nullable BlockPos pos, @Nullable Random rand);
 
     @SuppressWarnings("deprecation")
-    public abstract int getSignal(BlockState state, IBlockReader blockReader, BlockPos pos, Direction direction);
+    public abstract int getSignal(@Nullable BlockState state, @Nullable IBlockReader blockReader, @Nullable BlockPos pos, @Nullable Direction direction);
 
     public int getOutputSignal(IBlockReader blockReader, BlockPos pos, BlockState state) {
         return state.getValue(OUTPUT_VALUE);
@@ -178,28 +189,28 @@ public abstract class AbstractTwoInputsBlock extends HorizontalBlock {
     }
 
     @SuppressWarnings("deprecation")
-    public abstract boolean isSignalSource(BlockState state);
+    public abstract boolean isSignalSource(@Nullable BlockState state);
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
-    public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+    public void setPlacedBy(@Nullable World world, @Nullable BlockPos pos, @Nullable BlockState state, LivingEntity entity, @Nullable ItemStack stack) {
         if (this.shouldTurnOn(world, pos, state)) {
-            world.getBlockTicks().scheduleTick(pos, this, 1);
+            Objects.requireNonNull(world).getBlockTicks().scheduleTick(Objects.requireNonNull(pos), this, 1);
         }
 
     }
 
     @SuppressWarnings("deprecation")
-    public void onPlace(BlockState state, World world, BlockPos pos, BlockState state2, boolean flag) {
-        this.updateNeighborsInFront(world, pos, state);
+    public void onPlace(@Nullable BlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable BlockState state2, boolean flag) {
+        this.updateNeighborsInFront(world, Objects.requireNonNull(pos), Objects.requireNonNull(state));
     }
 
     @SuppressWarnings("deprecation")
-    public void onRemove(BlockState state, World world, BlockPos pos, BlockState state2, boolean flag) {
-        if (!flag && !state.is(state2.getBlock())) {
-            super.onRemove(state, world, pos, state2, flag);
+    public void onRemove(@Nullable BlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable BlockState state2, boolean flag) {
+        if (!flag && !Objects.requireNonNull(state).is(Objects.requireNonNull(state2).getBlock())) {
+            super.onRemove(state, Objects.requireNonNull(world), Objects.requireNonNull(pos), state2, flag);
             this.updateNeighborsInFront(world, pos, state);
         }
     }
@@ -221,3 +232,4 @@ public abstract class AbstractTwoInputsBlock extends HorizontalBlock {
         return state.getBlock() instanceof AbstractTwoInputsBlock;
     }
 }
+//========SOLI DEO GLORIA========//
